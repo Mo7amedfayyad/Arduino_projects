@@ -23,7 +23,6 @@
 #define REMOTEXY_MODE__ESP8266_HARDSERIAL_POINT
 
 #include <RemoteXY.h>
-#include <string.h>
 // RemoteXY connection settings
 #define REMOTEXY_SERIAL Serial
 #define REMOTEXY_SERIAL_SPEED 115200
@@ -63,22 +62,18 @@ struct {
 
 #define up_r_p 12
 #define up_r_n 11
-
 #define up_l_p 9
 #define up_l_n 10
 
 #define down_r_p A0
 #define down_r_n A1
-
 #define down_l_p A3
 #define down_l_n A2
 
 #define echo_f 8
 #define trig_f 7
-
 #define echo_r 6
 #define trig_r 5
-
 #define echo_l 4
 #define trig_l 3
 
@@ -114,7 +109,6 @@ void setup() {
   digitalWrite(cutting, 1);
 }
 
-
 int checker = 0;
 
 void loop() {
@@ -142,16 +136,11 @@ void loop() {
   } else if (RemoteXY.mode == 1) {  // automatic mode
     get_ultrasonic_value();
   } else if (RemoteXY.mode == 2) {  // area mode
-
     digitalWrite(cutting, 0);
     RemoteXY.Cutting = 1;
 
-    if (RemoteXY.mode == 2) {
-      area_cut(x_direction, y_direction);
-      RemoteXY.mode = 0;
-    } else {
-    }
-  } else {
+    area_cut(x_direction, y_direction);
+    RemoteXY.mode = 0;
   }
 }
 
@@ -221,7 +210,6 @@ void area_cut(int x, int y) {
   int tryes = x / 30;
   if (y % 30) {
     tryes += 1;
-  } else {
   }
   int dir_counter = 0;
 
@@ -252,7 +240,6 @@ void area_cut(int x, int y) {
         check_cut();
         delay(2350);
         dir_counter++;
-      } else {
       }
     } else {
       go_forward();
@@ -280,12 +267,12 @@ void area_cut(int x, int y) {
         check_cut();
         delay(2350);
         dir_counter++;
-      } else {
       }
     }
   }
   digitalWrite(cutting, HIGH);
 }
+
 void check_cut(void) {
   if (RemoteXY.Cutting == 1) {
     digitalWrite(cutting, 0);
@@ -328,5 +315,5 @@ void get_ultrasonic_value(void) {
       delay(2350);
       checker++;
     }
-}
+  }
 }
